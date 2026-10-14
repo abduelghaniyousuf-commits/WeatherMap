@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherMap</title>
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1 class="roboto-sans"> WeatherMap</h1>
+      <p class="roboto-sans">WeatherMap for location-based current Weather & and weather forecasts.</p>
+    </div>
+  </header>
+  <div class="spacer"></div>
+  <div class="spacer"></div>
+
+  <main>
+    <div>
+      <form>
+        <input class="roboto-sans" id="city" type="text" placeholder="Search">
+
+        </select>
+        <button class="roboto-sans" type="submit">Search a City</button>
+      </form>
+      <div class="spacer"></div>
+    </div>
+    <div id="map">map</div>
+    <div class="hidden"> more details</div>
+  </main>
+
+  <footer></footer>
+
+
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTzqYftm3d4Meu0fCxQ9QUhTlCus_27gE&loading=async&callback=initmap()"
+    defer>
+    </script>
+  <script src="./src/index.js" type="module"></script>
+</body>
+
+</html>
