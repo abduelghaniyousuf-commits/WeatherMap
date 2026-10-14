@@ -81,7 +81,7 @@ select:open {
   border-radius: 5px;
 }
 
-.search-select{
+.search-select {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -102,6 +102,11 @@ button:hover {
   background-color: limegreen;
   opacity: 0.8;
   cursor: pointer;
+}
+
+#sProgress {
+  display: block;
+  
 }
 
 /* set main to flex , column direction & align form and map to lift as header */
