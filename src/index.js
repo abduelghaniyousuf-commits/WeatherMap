@@ -169,7 +169,7 @@ async function updateMap(newOptions, info) {
     console.log("marker clicked...")
     infoWindow.close();
     // marker.map = null
-    var content = `<div id="weatherInfo">
+    var content = `<div id="weatherInfo" class="roboto-sans">
     <!-- current.condition -->
     <i><img src="${info.current.condition.icon}" alt="${info.current.condition.text}"></i>
     <h1 style="text-align: center;display:inline-block">${info.location.name}</h1>
