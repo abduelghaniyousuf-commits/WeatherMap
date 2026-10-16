@@ -7,6 +7,8 @@ function progressHandler(event) {
     indicator.setAttribute("value", `${progressRate}`);
     console.log(progressRate);
   } else {
+    const indicator = document.getElementById("sProgress");
+
     console.log("un computable length");
   }
 }
@@ -45,16 +47,57 @@ const getBtn = document.getElementById("search");
 
 getBtn.addEventListener("click", formHandler);
 
-function formHandler(event) {
+async function formHandler(event) {
   event.preventDefault();
-  document.getElementById("sProgress").classList.toggle("show");
+  document.getElementById("sProgress").classList.remove("hidden");
+  document.getElementById("sProgress").classList.add("show");
+  setTimeout(() => { }, 3000);
   city = document.getElementById("city");
   console.log("translating");
   cityName = city.value;
-  const location = translateAddress(cityName);
+  city.value = "";
+
+  // request geolocation for current location to get cities
+
+  translateAddress(cityName);
+
+  // get Weather of supplied city 
+  getWeatherByName(cityName);
 
 }
 
+
+async function getWeatherByName(city) {
+  // testing is city setted must be implemented
+  console.log("weathering...");
+  var url = `https://api.weatherapi.com/v1/current.json?key=70c796da70864de7951112249260910&q=${city}`
+  http.open("GET", url);
+  http.send();
+  http.onload = async () => {
+    // console.log(http.response);
+    const info = JSON.parse(http.response);
+    console.log(info);
+    const location = {};
+    location.lat = info.location.lat;
+    location.lng = info.location.lon;
+    console.log(location)
+    var newOptions = {
+      center: location,
+      zoom: 10,
+      mapId: "demo"
+    }
+    // console.log(newOptions)
+    if (newOptions.center) {
+      // updating map with new options 
+      await updateMap(newOptions, info)
+    }
+
+    var weatherInfo;
+
+
+
+  }
+}
 // 
 
 
@@ -79,7 +122,6 @@ function formHandler(event) {
 
 
 // process suggestions
-console.log(cityName);
 function getLocation(cityName) {
   cityName = formHandler;
 }
@@ -98,18 +140,63 @@ var cityLocation = {
 }
 var options = {
   center: cityLocation,
-  zoom: 12
+  zoom: 12,
+  zoomControl: true,
+  mapId: "demo"
 }
 
 async function initMap() {
-  new google.maps.Map(document.getElementById("map"), options);
+  const map = await new google.maps.Map(document.getElementById("map"), options)
   // const map = new google.maps.Map(document.getElementById("map").innerHTML);
+}
+
+// update google map to focus on the specified city
+async function updateMap(newOptions, info) {
+  const newMap = await new google.maps.Map(document.getElementById("map"), newOptions)
+  const marker = new google.maps.marker.AdvancedMarkerElement({
+    map: newMap,
+    position: newOptions.center,
+    title: info.location.name,
+  }
+  )
+
+  const imageIcon = document.createElement("img")
+  imageIcon.src = info.current.condition.icon
+  marker.append(imageIcon)
+  const infoWindow = new google.maps.InfoWindow()
+  console.log(infoWindow)
+  marker.addListener("click", () => {
+    console.log("marker clicked...")
+    infoWindow.close();
+    // marker.map = null
+    var content = `<div id="weatherInfo">
+    <!-- current.condition -->
+    <i><img src="${info.current.condition.icon}" alt="${info.current.condition.text}"></i>
+    <h1 style="text-align: center;">${info.location.name}</h1>
+    <ul style="list-style: none;">
+      <!-- current -->
+      <li>cloud:${info.current.cloud}%</li>
+      <li>temp: ${info.current.temp_c}C°</li>
+      <li>humidity: ${info.current.humidity}%</li>
+      <li>wind_kph: ${info.current.wind_kph}<span><small>${info.current.wind_dir}</small></span></li>
+      <li>chance_of_rain: ${info.current.chance_of_rain} </li>
+    </ul>
+  </div>`
+    infoWindow.setContent(content);
+    infoWindow.open({ anchor: marker });
+    const details = document.getElementById("details")
+    console.log(content)
+    details.innerHTML = content
+    details.classList.remove("hidden")
+    details.classList.add("show")
+  })
+
+  console.log(marker);
 }
 
 // console.log(city);
 
-// await initMap();
-// request geolocation for current location to get cities
+await initMap()
 
 
 

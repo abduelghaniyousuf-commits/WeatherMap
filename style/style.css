@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+body {
+  background-image: url("../assets/weather_state/top-view-earth-globe-with-paper-ocean-waves.jpg");
+}
+
 /* google fonts */
 .roboto-sans {
   font-family: "Roboto", sans-serif;
@@ -106,7 +110,7 @@ button:hover {
 
 #sProgress {
   display: block;
-  
+
 }
 
 /* set main to flex , column direction & align form and map to lift as header */
@@ -117,11 +121,27 @@ main {
   margin-right: auto;
 }
 
-#map {
+.map-details {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
 
+}
+
+#map {
   height: 70vh;
   width: 75%;
   border: 3px solid chocolate;
+  border-radius: 5px;
+  box-shadow: 3px 5px rgba(31, 15, 4, 0.115);
+}
+
+#details {
+
+  width: 25%;
+  border: 3px solid chocolate;
+  border-radius: 5px;
+  background-color: chocolate;
 }
 
 .hidden {

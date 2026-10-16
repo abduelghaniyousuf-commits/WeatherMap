@@ -25,24 +25,27 @@
   <main>
     <div>
       <form id="form" role="search">
-        <input class="roboto-sans" id="city" type="text" name="Search">
-
-
+        <input class="roboto-sans" id="city" type="text" name="Search" required>
         <button id="search" class="roboto-sans" type="submit">Get Weather</button>
-        <progress id="sProgress" max="100" value="0" class="hidden">0%</progress>
+        <progress id="sProgress" class="hidden"></progress>
       </form>
       <div class="spacer"></div>
+      <div class="map-details">
+        <div id="map"></div>
+        <div id="details" class="hidden"></div>
+      </div>
+
     </div>
-    <div id="map"></div>
-    <div class="hidden"> more details</div>
   </main>
 
-  <footer></footer>
+  <footer>
+    <div class="spacer"></div>
+  </footer>
 
 
 
-  <script async async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTzqYftm3d4Meu0fCxQ9QUhTlCus_27gE&loading=async&callback=initMap"
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEAUTpz7JUoNoYl5Tm0K2R17IuhaWHr08&loading=async&callback=initMap&libraries=marker"
     defer>
     </script>
   <script src="./src/index.js" type="module"></script>
