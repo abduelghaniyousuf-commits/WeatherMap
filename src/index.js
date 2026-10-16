@@ -172,13 +172,13 @@ async function updateMap(newOptions, info) {
     var content = `<div id="weatherInfo">
     <!-- current.condition -->
     <i><img src="${info.current.condition.icon}" alt="${info.current.condition.text}"></i>
-    <h1 style="text-align: center;">${info.location.name}</h1>
+    <h1 style="text-align: center;display:inline-block">${info.location.name}</h1>
     <ul style="list-style: none;">
       <!-- current -->
       <li>cloud:${info.current.cloud}%</li>
       <li>temp: ${info.current.temp_c}C°</li>
       <li>humidity: ${info.current.humidity}%</li>
-      <li>wind_kph: ${info.current.wind_kph}<span><small>${info.current.wind_dir}</small></span></li>
+      <li>wind_kph: ${info.current.wind_kph}<span><small> ${info.current.wind_dir}°</small></span></li>
       <li>chance_of_rain: ${info.current.chance_of_rain} </li>
     </ul>
   </div>`
@@ -195,8 +195,8 @@ async function updateMap(newOptions, info) {
 }
 
 // console.log(city);
-
-await initMap()
+setTimeout(initMap, 5000);
+// await initMap()
 
 
 
