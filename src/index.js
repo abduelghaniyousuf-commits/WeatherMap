@@ -146,6 +146,7 @@ var options = {
 }
 
 async function initMap() {
+
   const map = await new google.maps.Map(document.getElementById("map"), options)
   // const map = new google.maps.Map(document.getElementById("map").innerHTML);
 }
@@ -180,6 +181,8 @@ async function updateMap(newOptions, info) {
       <li>humidity: ${info.current.humidity}%</li>
       <li>wind_kph: ${info.current.wind_kph}<span><small> ${info.current.wind_dir}°</small></span></li>
       <li>chance_of_rain: ${info.current.chance_of_rain} </li>
+      <hr>
+      <li style="display:flex; flex-wrap:wrap"><button id="share" style="margin-right:16px">share</button> <button id="more-forecast" style="background-color: blue;margin-top:16px">more forecasts</button></li>
     </ul>
   </div>`
     infoWindow.setContent(content);
@@ -189,6 +192,13 @@ async function updateMap(newOptions, info) {
     details.innerHTML = content
     details.classList.remove("hidden")
     details.classList.add("show")
+
+    // adds listeners to share & more forecast buttons
+    var share = document.getElementById("share")
+    var forecast = document.getElementById("more-forecast")
+    share.addEventListener('click', shareHandler(city))
+    forecast.addEventListener("click", () => { forecastHandler(info.location.name) })
+
   })
 
   console.log(marker);
@@ -199,6 +209,19 @@ setTimeout(initMap, 5000);
 // await initMap()
 
 
+// shareHandler: shares weather details of current window across websites or clipboard
+function shareHandler(city) {
 
+  // implementing share api
+}
 
+// forecastHandler: more weather forecasts
+function forecastHandler(city) {
+  console.log(city)
+  var forecastContainer = document.getElementById("forecast")
+  if (forecastContainer) {
+    forecastContainer.classList.toggle("hidden")
+  }
+
+}
 // sending location to weather api 

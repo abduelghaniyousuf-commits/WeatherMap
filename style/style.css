@@ -144,6 +144,15 @@ main {
   background-color: chocolate;
 }
 
+#forecast {
+  background-color: chocolate;
+  height: 200px;
+  border: 3px solid chocolate;
+  border-radius: 5px;
+  box-shadow: 3px 5px rgba(31, 15, 4, 0.115);
+
+}
+
 .hidden {
   visibility: hidden;
 }
