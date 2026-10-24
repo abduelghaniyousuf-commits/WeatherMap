@@ -100,10 +100,7 @@ async function getWeatherByName(city) {
 }
 // 
 
-
-
 // city.addEventListener("keyup", getText);
-
 // function getText(e) {
 //   console.log(e.target.value);
 //   var q = e.target.value;
@@ -116,22 +113,10 @@ async function getWeatherByName(city) {
 
 // }
 
-
-
-
-
-
 // process suggestions
 function getLocation(cityName) {
   cityName = formHandler;
 }
-
-
-
-// request for lat ,lng of right suggested city 
-// console.log(cityName);
-
-
 
 // initialize google map
 
@@ -196,8 +181,8 @@ async function updateMap(newOptions, info) {
     // adds listeners to share & more forecast buttons
     var share = document.getElementById("share")
     var forecast = document.getElementById("more-forecast")
-    share.addEventListener('click', shareHandler(city))
-    forecast.addEventListener("click", () => { forecastHandler(info.location.name) })
+    share.addEventListener('click', async () => { await shareHandler(city) })
+    forecast.addEventListener("click", async () => { await forecastHandler(info.location.name) })
 
   })
 
@@ -210,17 +195,35 @@ setTimeout(initMap, 5000);
 
 
 // shareHandler: shares weather details of current window across websites or clipboard
-function shareHandler(city) {
+async function shareHandler(city) {
+  console.log("sharing...")
+  // require "AdvanceMarkerElemen" from "google.maps.libraries('marker')"
+
+  var data = {
+    title: "share API",
+    text: document.getElementById('weatherInfo').textContent,
+    url: Window.url
+  }
+  try {
+    var isShared = await navigator.share(data)
+    console.log("shared successfully")
+
+  }
+  catch (err) {
+    console.error(err)
+  }
 
   // implementing share api
 }
 
 // forecastHandler: more weather forecasts
-function forecastHandler(city) {
+async function forecastHandler(city) {
   console.log(city)
   var forecastContainer = document.getElementById("forecast")
   if (forecastContainer) {
     forecastContainer.classList.toggle("hidden")
+    forecastContainer.textContent = "<p>Weather Data for a week...</p>"
+    // call forecast api 
   }
 
 }
